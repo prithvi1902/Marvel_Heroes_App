@@ -5,16 +5,7 @@ import 'package:http/http.dart' as http; // creating an object of http
 
 import 'data/marvelList.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MarvelState(),
-    );
-  }
-}
+void main() => runApp(MarvelState());
 
 String url = "https://simplifiedcoding.net/demos/marvel/";
 
