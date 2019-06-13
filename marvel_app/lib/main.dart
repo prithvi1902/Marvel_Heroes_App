@@ -53,6 +53,14 @@ class FetchHeroes extends State<MarvelState> {
       home: Scaffold(
           appBar: AppBar(
             title: Text("Marvel Heroes"),
+            actions: <Widget>[
+              new IconButton(
+                  icon: const Icon(Icons.refresh),
+                  tooltip: 'Refresh',
+                  onPressed: () {
+                    refreshIndicatorKey.currentState.show();
+                  }),
+            ],
           ),
           body: RefreshIndicator(
               key: refreshIndicatorKey,
