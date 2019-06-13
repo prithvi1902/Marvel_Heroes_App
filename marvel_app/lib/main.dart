@@ -30,7 +30,7 @@ class FetchHeroes extends State<MarvelState> {
         firstAppearance: "1960",
         createdBy: "David Banner",
         publisher: "Marvel Comics",
-        imageUrl: "https:\/\/www.simplifiedcoding.net\/demos\/marvel\/thor.jpg",
+        imageUrl: "https://imgix.bustle.com/uploads/image/2018/5/17/19fdcf46-db4b-4251-9214-85eb8c48350d-hulk-3.jpg",
         bio:
             "\r\n\t\tBruce is a geneticist working with colleague and girlfriend Betty Ross, within the Berkeley Biotechnology Institute on nanomed research to achieve instantaneous cell repair by using low-level gamma radiation exposure to turn on the nanomeds once they are introduced into a living organism, planning to use it to cure all from sicknesses such as cancer and Alzheimer's.\r\n\t\t")
   ];
