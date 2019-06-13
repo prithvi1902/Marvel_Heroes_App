@@ -13,7 +13,6 @@ Future<MarvelHeroesList> fetchMarvelHeroes() async {
   final response = await http.get('$url');
 
   if (response.statusCode == 200) {
-    print(response.body.toString());
     return marvelHeroesListFromJson(response.body);
   } else {
     //failed to load data
@@ -23,16 +22,30 @@ Future<MarvelHeroesList> fetchMarvelHeroes() async {
 
 class FetchHeroes extends State<MarvelState> {
   final saved = Set<Marvel>();
-  MarvelHeroesList list = MarvelHeroesList();
+  static List<Marvel> marvel = <Marvel>[
+    Marvel(
+        name: "Hulk",
+        realName: "Eric Bana",
+        team: "Avengers",
+        firstAppearance: "1960",
+        createdBy: "David Banner",
+        publisher: "Marvel Comics",
+        imageUrl: "https:\/\/www.simplifiedcoding.net\/demos\/marvel\/thor.jpg",
+        bio:
+            "\r\n\t\tBruce is a geneticist working with colleague and girlfriend Betty Ross, within the Berkeley Biotechnology Institute on nanomed research to achieve instantaneous cell repair by using low-level gamma radiation exposure to turn on the nanomeds once they are introduced into a living organism, planning to use it to cure all from sicknesses such as cancer and Alzheimer's.\r\n\t\t")
+  ];
+  MarvelHeroesList list = MarvelHeroesList(heroes: marvel); //create an object
+
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
- /* @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => refreshIndicatorKey.currentState.show());
-  }*/
+  //To show data at the start
+  /*  @override
+    void initState() {
+      super.initState();
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => refreshIndicatorKey.currentState.show());
+    }*/
 
   @override
   Widget build(BuildContext context) {
@@ -46,38 +59,31 @@ class FetchHeroes extends State<MarvelState> {
               onRefresh: refresh,
               child: Container(
                 alignment: Alignment.center,
-                child: FutureBuilder(
-                  future: fetchMarvelHeroes(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      print(snapshot.data.toString());
-                      list = snapshot.data;
-                      print(list);
-                      return ListView.builder(itemBuilder: (context, i) {
-                        if (i.isOdd) return Divider();
-
-                        final index = i ~/ 2;
-                        if (index < list.heroes.length) {
-                          Marvel hero = list.heroes[index];
-                          return ListTile(
-                            title: Text(hero.name),
-                            subtitle: Text(hero.realName),
-                            leading: Container(
-                              child: FadeInImage.assetNetwork(
-                                placeholder: 'assets/loading.gif',
-                                //specify in .yaml
-                                image: hero.imageUrl,
-                                placeholderScale: 4,
-                              ),
+                child: Container(
+                  alignment: Alignment.center,
+                  child: ListView.builder(itemBuilder: (context, i) {
+                    if (list != null) {
+                      if (i.isOdd) return Divider();
+                      final index = i ~/ 2;
+                      if (index < list.heroes.length) {
+                        Marvel hero = list.heroes[index];
+                        return ListTile(
+                          title: Text(hero.name),
+                          subtitle: Text(hero.realName),
+                          leading: Container(
+                            child: FadeInImage.assetNetwork(
+                              placeholder: 'assets/loading.gif',
+                              //specify in .yaml
+                              image: hero.imageUrl,
+                              placeholderScale: 4,
                             ),
-                          );
-                        }
-                      });
-                    } else if (snapshot.hasError) {
-                      return Text('${snapshot.error}');
+                          ),
+                        );
+                      }
+                    } else {
+                      Text("Please wait till we load data!");
                     }
-                    return CircularProgressIndicator();
-                  },
+                  }),
                 ),
               ))),
     );
@@ -85,7 +91,6 @@ class FetchHeroes extends State<MarvelState> {
 
   Future<void> refresh() {
     return fetchMarvelHeroes().then((heroes) {
-      heroes.heroes.add(Marvel());
       setState(() => list = heroes);
     });
   }
