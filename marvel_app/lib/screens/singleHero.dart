@@ -27,7 +27,6 @@ class SingleHero extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
@@ -36,6 +35,7 @@ class SingleHero extends StatelessWidget {
           style: TextStyle(
             fontSize: 30.0,
             fontStyle: FontStyle.italic,
+            fontWeight: FontWeight.bold,
           ),
         ),
         SizedBox(
@@ -50,6 +50,15 @@ class SingleHero extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(marvel[0]?.imageUrl)))),
+        SizedBox(
+          height: 20.0,
+        ),
+        Container(),
+        Text("Real Name: ${marvel[0].realName}",
+            style: TextStyle(
+              fontSize: 30.0,
+              fontStyle: FontStyle.italic,
+            )),
       ],
     ));
   }

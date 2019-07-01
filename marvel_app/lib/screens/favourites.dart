@@ -38,6 +38,13 @@ class FavouriteHeroes extends State<Favourites> {
                 Icons.favorite,
                 color: Colors.red,
               ),
+              onTap: (() {
+                Scaffold.of(context).showSnackBar(SnackBar(
+                    content: Text(
+                      "First Appearance in ${hero.firstAppearance}.",
+                    ),
+                    duration: Duration(seconds: 1)));
+              }),
             );
           }
         }), //
@@ -48,13 +55,4 @@ class FavouriteHeroes extends State<Favourites> {
       );
     }
   }
-
- /* void showDetails(int index) {
-    showDialog(context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title:,
-          );
-        });
-  }*/
 }

@@ -5,16 +5,18 @@ import 'package:marvel_app/data/marvelList.dart';
 import 'package:marvel_app/screens/home.dart';
 import 'package:marvel_app/screens/singleHero.dart';
 
-
 class MarvelState extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => FetchHeroes();
 }
 
 class FetchHeroes extends State<MarvelState> {
-  final saved = Set<Marvel>();
+  FetchHeroes() {
+    Home.savedHeroes.clear();
+  }
 
-  MarvelHeroesList list = MarvelHeroesList(heroes: SingleHero.marvel); //create an object
+  MarvelHeroesList list =
+      MarvelHeroesList(heroes: SingleHero.marvel); //create an object
 
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey<
       RefreshIndicatorState>(); //key used to denote the refresh indicator
@@ -35,14 +37,6 @@ class FetchHeroes extends State<MarvelState> {
 
   @override
   Widget build(BuildContext context) {
-  /*  actions: <Widget>[
-      new IconButton(
-          icon: const Icon(Icons.refresh),
-          tooltip: 'Refresh',
-          onPressed: () {
-            refreshIndicatorKey.currentState.show();
-          }),
-    ],*/
     bool isAlreadySaved;
     return RefreshIndicator(
       key: refreshIndicatorKey,
